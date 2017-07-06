@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Image Source"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+
+    <Button
+        android:id="@+id/imagebycamera"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnimage"
+        android:textColor="#ffff"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/forgotxt"
+        android:layout_marginLeft="30dp"
+        android:text="Take Photo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:gravity="center"
+        android:textSize="25dp"/>
+    <Button
+        android:id="@+id/imagebygallery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnimage1"
+        android:textColor="#ffff"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/forgotxt"
+        android:layout_marginLeft="30dp"
+        android:text="Choose From Gallery"/>
+    />
+
+</LinearLayout>
