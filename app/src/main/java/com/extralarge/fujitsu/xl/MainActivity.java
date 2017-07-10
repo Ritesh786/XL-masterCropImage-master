@@ -1,10 +1,14 @@
 package com.extralarge.fujitsu.xl;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     private BroadcastReceiver broadcastReceiver;
     String token;
+    AlertDialog alertDialog;
 
     String name;
 
@@ -87,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent searchint = new Intent(MainActivity.this,SearchActivity.class);
+                Intent searchint = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(searchint);
             }
         });
 
 
         Intent intent = getIntent();
-         name = intent.getStringExtra("session");
+        name = intent.getStringExtra("session");
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (menuItem.getItemId() == R.id.nav_item_reporterlogin) {
 
-                   // session.createUserLoginSession(name);
+                    // session.createUserLoginSession(name);
 
                     Intent reporterloginint = new Intent(MainActivity.this, ReporterLogin.class);
 //                    reporterloginint.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -195,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 token = tokensave.getInstance(MainActivity.this).getDeviceToken();
-                Log.d("tok00",token);
+                Log.d("tok00", token);
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                if(!prefs.getBoolean("firstTime", false)) {
+                if (!prefs.getBoolean("firstTime", false)) {
 
                     SendtokenofNews();
 
@@ -210,9 +215,43 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        registerReceiver(broadcastReceiver,new IntentFilter(MyFirebaseInstanceIDService.TOKEN_BROADCAST));
+        registerReceiver(broadcastReceiver, new IntentFilter(MyFirebaseInstanceIDService.TOKEN_BROADCAST));
+
+
+        if (!isNetworkAvailable(MainActivity.this)) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            alertDialogBuilder.setMessage("No Internet Connection ! Enable your Connection First !!! ");
+
+            alertDialogBuilder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    finish();
+                }
+            });
+            alertDialog = alertDialogBuilder.create();
+            alertDialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                                               @Override
+                                               public void onShow(DialogInterface arg0) {
+                                                   alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor( getResources().getColor( R.color.colorPrimary ));
+                                                   alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor( getResources().getColor( R.color.colorPrimary ));
+                                               }
+                                           }
+            );
+            alertDialog.show();
+
 
         }
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = ( ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
     public void SendtokenofNews() {

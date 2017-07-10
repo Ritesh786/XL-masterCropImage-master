@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <service android:name="com.alexfu.countdownview.core.TimerService"/>
+
     <application
         android:name=".ReporterSection.AppController"
         android:allowBackup="true"
@@ -52,7 +54,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <activity android:name=".SearchActivity" />
         <activity android:name=".ReporterSection.CropImage" />
         <activity android:name=".ReporterSection.CameraActivity"></activity>

@@ -55,13 +55,17 @@
                     android:text="Sit Back And Relax"
                     android:textColor="@color/black"/>
 
-            <com.github.anastr.flattimelib.CountDownTimerView
-                android:id="@+id/flatClock"
-                android:layout_width="150dp"
-             android:layout_marginLeft="80dp"
-                android:layout_height="50dp"
-                android:layout_toRightOf="@+id/waittext"
-                app:hourIndicatorColor="#ef2f2f" />
+                <cn.iwgang.countdownview.CountdownView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    app:isHideTimeBackground="true"
+                    android:layout_marginLeft="40dp"
+                    app:isShowMillisecond="false"
+                    android:id="@+id/flatClock"
+                    app:timeTextSize="22sp"
+                    app:isTimeTextBold="true"
+                    android:layout_marginTop="22dp"
+                    android:layout_toRightOf="@+id/waittext"/>
 </RelativeLayout>
 
         <android.support.v7.widget.AppCompatButton

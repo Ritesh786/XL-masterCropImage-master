@@ -30,10 +30,6 @@ import com.extralarge.fujitsu.xl.AutomaticSmsRead.SmsListener;
 import com.extralarge.fujitsu.xl.AutomaticSmsRead.SmsReceiver;
 import com.extralarge.fujitsu.xl.R;
 import com.extralarge.fujitsu.xl.UserSessionManager;
-import com.github.anastr.flattimelib.CountDownTimerView;
-import com.github.anastr.flattimelib.FlatClockView;
-import com.github.anastr.flattimelib.colors.Themes;
-import com.github.anastr.flattimelib.intf.OnTimeFinish;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +40,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cn.iwgang.countdownview.CountdownView;
 
 public class Verifyotp extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,7 +54,7 @@ public class Verifyotp extends AppCompatActivity implements View.OnClickListener
     BroadcastReceiver receiver = null;
 
     UserSessionManager session;
-    CountDownTimerView mflatclocl;
+    CountdownView mflatclocl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,19 +79,19 @@ public class Verifyotp extends AppCompatActivity implements View.OnClickListener
         session = new UserSessionManager(getApplicationContext());
 
         mverifyotptext = (EditText) findViewById(R.id.mobileotp);
-        mflatclocl = (CountDownTimerView) findViewById(R.id.flatClock);
+        mflatclocl = (CountdownView) findViewById(R.id.flatClock);
 
         mverifyotpbtn = (AppCompatButton) findViewById(R.id.verifyotp_btn);
         mverifyotpbtn.setOnClickListener(this);
 
-     mflatclocl.start(120000);
+        mflatclocl.start(120000);
 
-        mflatclocl.setOnTimeFinish(new OnTimeFinish() {
-            @Override
-            public void onFinish() {
-                Toast.makeText(getApplicationContext(), "Something Very Bad Happen....", Toast.LENGTH_SHORT).show();
-            }
-        });
+       mflatclocl.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
+           @Override
+           public void onEnd(CountdownView cv) {
+
+           }
+       });
 
 
     }
