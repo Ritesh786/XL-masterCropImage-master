@@ -13,8 +13,6 @@ import java.util.HashMap;
  */
 
 public class UserSessionManager
-
-
 {
 
     // Shared Preferences reference

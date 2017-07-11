@@ -43,7 +43,7 @@ public class MyNotificationManager {
                             mCtx,
                             ID_BIG_NOTIFICATION,
                             intent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_ONE_SHOT
                     );
             NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
             bigPictureStyle.setBigContentTitle(title);
@@ -76,7 +76,7 @@ public class MyNotificationManager {
                             mCtx,
                             ID_SMALL_NOTIFICATION,
                             intent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_ONE_SHOT
                     );
 
 

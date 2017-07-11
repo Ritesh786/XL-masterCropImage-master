@@ -1,7 +1,9 @@
 package com.extralarge.fujitsu.xl.ReporterSection;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -54,6 +56,7 @@ public class ReporterLogin extends AbsRuntimePermission implements View.OnClickL
                         Manifest.permission.READ_SMS,
 //                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_WIFI_STATE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 R.string.msg, REQUEST_PERMISSION);
 
@@ -65,6 +68,9 @@ public class ReporterLogin extends AbsRuntimePermission implements View.OnClickL
         msendotpbtn = (AppCompatButton) findViewById(R.id.sendotp_btn);
       //  hasPermissions();
        msendotpbtn.setOnClickListener(this);
+
+        String macid = getMacId(ReporterLogin.this);
+        Log.d("mc00","macid11"+macid);
 
     }
 
@@ -103,7 +109,7 @@ public class ReporterLogin extends AbsRuntimePermission implements View.OnClickL
             msendotptext.requestFocus();
             msendotptext.setError("This Field Is Mandatory");
         }
-        else{
+        else {
 
             String url = null;
             String REGISTER_URL = "http://api.minews.in/request_sms.php";
@@ -163,7 +169,7 @@ public class ReporterLogin extends AbsRuntimePermission implements View.OnClickL
 
                     params.put(KEY_mobile, sendotptxt);
                     params.put(KEY_token, token);
-                  Log.d("tok00",token);
+                    Log.d("tok00", token);
                     return params;
 
                 }
@@ -172,8 +178,25 @@ public class ReporterLogin extends AbsRuntimePermission implements View.OnClickL
             RequestQueue requestQueue = Volley.newRequestQueue(ReporterLogin.this);
             requestQueue.add(stringRequest);
         }
+    }
 
+    public static String getMacId(Context context)
+    {
+        String macId=null;
 
+            macId=getMacAddress(context);
+
+        return macId;
+    }
+
+    private static String getMacAddress(Context context)
+    {
+        WifiManager manager;
+        String macId=null;
+        manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if(manager!=null)
+            macId= manager.getConnectionInfo().getMacAddress();
+        return macId;
     }
 
 }

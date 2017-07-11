@@ -162,13 +162,16 @@ public class MainActivity extends AppCompatActivity {
 
                 if (menuItem.getItemId() == R.id.nav_item_reporterlogin) {
 
-                    // session.createUserLoginSession(name);
-
                     Intent reporterloginint = new Intent(MainActivity.this, ReporterLogin.class);
                     reporterloginint.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     reporterloginint.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(reporterloginint);
                     finish();
+
+                    if (session.checkLogin()){
+                        menuItem.setVisible(false);
+                    }
+
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_uploadnews) {
