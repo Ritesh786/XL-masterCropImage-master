@@ -42,16 +42,6 @@ public class CropImage extends AppCompatActivity {
         cropImageView=(CropImageView)findViewById(R.id.cropImageView);
         cropBtn=(LinearLayout)findViewById(R.id.cropBtn);
 
-//       Intent data = getIntent();
-//        String camearaimage = data.getStringExtra("cameraji");
-//        boolean checkcam = data.getBooleanExtra("camerajiboolean",false);
-//        Log.d("camimg00","camimg "+camearaimage);
-//        if(checkcam){
-//
-//            bitmap = StringToBitMap(camearaimage);
-//            Log.d("bitmaocam00","bitmapvam "+bitmap);
-//        }
-
         cameraSource=getIntent().getBooleanExtra(GlobalVariables.CAMERA_SOURCE,false);
        checkcam = getIntent().getBooleanExtra("camerajiboolean",false);
         if(cameraSource) {
@@ -88,10 +78,6 @@ else {
                 UtilityClass.saveImage(GlobalVariables.profilepic_name, cropped);
                 Intent returnIntent = new Intent();
                 setResult(RESULT_OK, returnIntent);
-//            String bitimage = getStringImage(cropped);
-//            Intent returnIntent = new Intent();
-//       //     returnIntent.putExtra("cropimage",bitimage);
-//            setResult(PICK_CROPIMAGE, returnIntent);
                 finish();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
